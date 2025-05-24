@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="JZqIV4LAHATfzueDBsQkcbSM5DX2l_P4jnpv7ObZExc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Personal Portfolio</title>
+  <link rel="shortcut icon" type="image/icon" href="make the logo name VR for my website top logo more attractive.png" />
+  <style>
+    /* Reset and base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f2027;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #f0f0f0;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    a {
+      color: #61dafb;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #21a1f1;
+    }
+    header {
+      background-color: rgba(15, 32, 39, 0.85);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: saturate(180%) blur(10px);
+    }
+    header h1 {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #61dafb;
+      cursor: default;
+      user-select: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav ul li {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    nav ul li a {
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      position: relative;
+      display: inline-block;
+    }
+    nav ul li a.active,
+    nav ul li a:hover {
+      background-color: #61dafb;
+      color: #0f2027;
+      font-weight: 700;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 900px;
+      width: 90%;
+      margin: 2rem auto;
+    }
+    section {
+      margin-bottom: 4rem;
+      background-color: rgba(255,255,255,0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Hero with subtle animated background */
+    #hero {
+      position: relative;
+      text-align: center;
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #61dafb 0%, #21a1f1 100%);
+      color: #0f2027;
+      border-radius: 16px;
+      box-shadow: 0 8px 15px rgba(33,161,241,0.5);
+      overflow: hidden;
+    }
+    #hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -30%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 60%);
+      animation: pulse 8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.15;
+      }
+      50% {
+        transform: rotate(180deg) scale(1.2);
+        opacity: 0.4;
+      }
+    }
+    #hero h2 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      position: relative;
+      z-index: 1;
+    }
+    #hero p {
+      font-size: 1.2rem;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+    /* About */
+    #about {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    #about .photo {
+      flex: 1 1 250px;
+      max-width: 300px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 8px 15px rgba(33,161,241,0.7);
+      border: 4px solid #61dafb;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+    #about .photo:hover {
+      transform: scale(1.05) rotate(3deg);
+    }
+    #about .photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    #about .bio {
+      flex: 2 1 400px;
+      font-size: 1.1rem;
+      color: #ddd;
+      user-select: text;
+    }
+    #about .bio p {
+      margin-bottom: 1rem;
+    }
+    /* Skills */
+    #skills h3 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #61dafb;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    #skills .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    #skills .skill {
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      width: 140px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(33,161,241,0.3);
+      transition: transform 0.3s ease;
+      cursor: default;
+      user-select: none;
+      position: relative;
+    }
+    #skills .skill:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(33,161,241,0.6);
+    }
+    #skills .skill .skill-name {
+      margin-top: 0.5rem;
+      font-weight: 700;
+      color: #21a1f1;
+    }
+    /* Projects */
+    #projects h3 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #61dafb;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    #projects .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    #projects .project {
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 1.2rem 1rem;
+      box-shadow: 0 2px 8px rgba(33,161,241,0.3);
+      transition: box-shadow 0.3s ease;
+      outline-offset: 4px;
+    }
+    #projects .project:hover,
+    #projects .project:focus-visible {
+      box-shadow: 0 6px 18px rgba(33,161,241,0.6);
+      outline: none;
+    }
+    #projects .project h4 {
+      margin-bottom: 0.5rem;
+      color: #21a1f1;
+    }
+    #projects .project p {
+      font-size: 0.95rem;
+      color: #cfcfcf;
+      margin-bottom: 0.75rem;
+    }
+    #projects .project a {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+    #projects .project a:hover,
+    #projects .project a:focus-visible {
+      color: #fff;
+      outline: none;
+      text-decoration: underline;
+    }
+    /* Contact */
+    #contact h3 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #61dafb;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    #contact form {
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    #contact label {
+      font-weight: 600;
+      color: #ddd;
+    }
+    #contact input,
+    #contact textarea {
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+      transition: box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+      background-color: rgba(255,255,255,0.05);
+      color: #f0f0f0;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    }
+    #contact input::placeholder,
+    #contact textarea::placeholder {
+      color: #999;
+    }
+    #contact input:focus,
+    #contact textarea:focus {
+      box-shadow: 0 0 12px #61dafb;
+      background-color: #163a4f;
+      color: #fff;
+    }
+    #contact textarea {
+      min-height: 120px;
+    }
+    #contact button {
+      background-color: #61dafb;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      color: #0f2027;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      align-self: center;
+      max-width: 160px;
+      box-shadow: 0 4px 0 #21a1f1;
+      position: relative;
+    }
+    #contact button:hover {
+      background-color: #21a1f1;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px #21a1f1;
+    }
+    #contact button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 0 #21a1f1;
+    }
+    #contact .success-message,
+    #contact .error-message {
+      text-align: center;
+      font-weight: 700;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #contact .success-message.visible {
+      color: #0f2027;
+      background-color: #61dafb;
+      visibility: visible;
+      opacity: 1;
+    }
+    #contact .error-message.visible {
+      color: #f44336;
+      background-color: rgba(255, 99, 71, 0.25);
+      visibility: visible;
+      opacity: 1;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      color: #888;
+      background-color: rgba(15, 32, 39, 0.85);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+      user-select: none;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+    /* Social icons in footer */
+    footer .social {
+      display: flex;
+      gap: 1rem;
+    }
+    footer .social a {
+      display: inline-block;
+      color: #888;
+      transition: color 0.3s ease;
+      font-size: 1.2rem;
+      user-select: none;
+    }
+    footer .social a:hover,
+    footer .social a:focus-visible {
+      color: #61dafb;
+      outline: none;
+    }
+
+    /* Back to top button */
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background-color: #61dafb;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(33,161,241,0.6);
+      color: #0f2027;
+      font-weight: 700;
+      font-size: 24px;
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    #back-to-top.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #back-to-top:hover {
+      background-color: #21a1f1;
+      color: #fff;
+      box-shadow: 0 6px 20px #21a1f1;
+    }
+
+    /* Dark/Light toggle */
+    #theme-toggle {
+      background: none;
+      border: 2px solid #61dafb;
+      border-radius: 20px;
+      width: 45px;
+      height: 24px;
+      cursor: pointer;
+      position: relative;
+      margin-left: 1rem;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      outline-offset: 2px;
+    }
+    #theme-toggle:focus-visible {
+      outline: 2px solid #21a1f1;
+    }
+    #theme-toggle .toggle-circle {
+      width: 20px;
+      height: 20px;
+      background-color: #61dafb;
+      border-radius: 50%;
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      transition: left 0.3s ease, background-color 0.3s ease;
+    }
+    body.light #theme-toggle .toggle-circle {
+      left: 23px;
+      background-color: #0f2027;
+    }
+    body.light {
+      background: #f0f0f3;
+      color: #222;
+    }
+    body.light header {
+      background-color: rgba(240, 240, 243, 0.9);
+      color: #222;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      backdrop-filter: saturate(180%) blur(10px);
+    }
+    body.light nav ul li a.active,
+    body.light nav ul li a:hover {
+      background-color: #21a1f1;
+      color: #f0f0f3;
+    }
+    body.light #hero {
+      background: linear-gradient(135deg, #21a1f1, #61dafb);
+      color: #f0f0f3;
+      box-shadow: 0 8px 15px rgba(97,218,251,0.8);
+    }
+    body.light section {
+      background-color: rgba(15, 32, 39, 0.05);
+      color: #222;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    body.light #about .bio {
+      color: #333;
+    }
+    body.light #contact input,
+    body.light #contact textarea {
+      background-color: #eaeafd;
+      color: #222;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
+    }
+    body.light #contact input:focus,
+    body.light #contact textarea:focus {
+      background-color: #d1defb;
+      box-shadow: 0 0 12px #21a1f1;
+      color: #222;
+    }
+    body.light footer {
+      background-color: rgba(240, 240, 243, 0.9);
+      color: #555;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    }
+    body.light footer .social a {
+      color: #555;
+    }
+    body.light footer .social a:hover,
+    body.light footer .social a:focus-visible {
+      color: #21a1f1;
+    }
+    body.light #back-to-top {
+      background-color: #21a1f1;
+      color: #f0f0f3;
+      box-shadow: 0 4px 12px rgba(33,161,241,0.8);
+    }
+    body.light #back-to-top:hover {
+      background-color: #61dafb;
+      color: #0f2027;
+      box-shadow: 0 6px 20px #61dafb;
+    }
+    /* Responsive */
+    @media (max-width: 720px) {
+      #about {
+        flex-direction: column;
+        text-align: center;
+      }
+      #about .bio {
+        flex: unset;
+      }
+      #hero h2 {
+        font-size: 2.4rem;
+      }
+      #hero p {
+        font-size: 1rem;
+      }
+      nav ul {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Portfolio</h1>
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle light and dark mode" aria-pressed="false">
+      <span class="toggle-circle"></span>
+    </button>
+  </header>
+
+  <main>
+    <section id="hero" aria-label="Introduction">
+      <h2>Hello, I'm veda</h2>
+      <p>Front-End Developer & Designer</p>
+    </section>
+
+    <section id="about" aria-label="About Me">
+      <div class="photo" aria-hidden="true">
+        <img src="https://media-bom2-1.cdn.whatsapp.net/v/t61.24694-24/491838558_2035940093562806_4281424652786522066_n.jpg?ccb=11-4&oh=01_Q5Aa1gEiViKCWm2z_D-TyEbYZOMTb0UBhjbEJHJIiAHUIBOhIw&oe=683B0EAF&_nc_sid=5e03e0&_nc_cat=102" alt="Your portrait" />
+      </div>
+      <div class="bio">
+        <p>Hello! I'm a passionate front-end developer who loves crafting beautiful and functional websites. I enjoy turning ideas into reality using clean, modern code and creative design. When I'm not coding, I’m exploring new tech trends or hiking outdoors.</p>
+        <p>Feel free to explore my work below or get in touch!</p>
+      </div>
+    </section>
+
+    <section id="skills" aria-label="My Skills">
+      <h3>Skills</h3>
+      <div class="skill-list" role="list">
+        <div class="skill" role="listitem" title="HTML5" tabindex="0">
+          <!-- HTML5 icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#e44d26" viewBox="0 0 24 24"><path d="M1.5 0l2.16 24L12 24l8.34-.008L22.5 0H1.5zm15.177 7.787H9.09l.12.534h3.307l-.262 2.774-3.15-.027-.095-1.15H7.5v1.812l2.93.835 1.03 3.27 3.14.01-.098-1.145-2.35-.63.157-1.77h4.91l.314-3.328.006-.057zm-2.888.527 3.372.126-.058.658H13.43l.75-1.872z"/></svg>
+          <div class="skill-name">HTML5</div>
+        </div>
+        <div class="skill" role="listitem" title="CSS3" tabindex="0">
+          <!-- CSS3 icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#264de4" viewBox="0 0 24 24"><path d="M1.5 0l2.16 24L12 24l8.34-.008L22.5 0H1.5zm16.83 7.102H9.34l.114.507h3.12v.001l-.345 3.655-3.095-.018-.076-.922H7.5v1.389l2.772.792 1.08 3.437 3.114-.004-.11-1.6-2.359-.668.157-1.874h4.92V7.102zm-3.09.58 3.14.117-.073.82H13.5l.488-1.37z"/></svg>
+          <div class="skill-name">CSS3</div>
+        </div>
+        <div class="skill" role="listitem" title="JavaScript" tabindex="0">
+          <!-- JavaScript icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#f0db4f" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12 0 4.422 2.39 8.25 5.92 10.088l1.497-3.207c-1.868-.54-3.192-2.21-3.192-4.276 0-2.345 1.895-4.24 4.243-4.24s4.245 1.895 4.245 4.24c0 2.097-1.316 3.783-3.211 4.252v3.22c3.75-.96 6.439-4.44 6.439-8.483 0-4.968-4.03-8.998-8.998-8.998zM9.106 14.948c-.03 1.17-1.022 2.796-3.547 2.796-1.352 0-2.23-.7-2.648-1.3l-.737 1.41c.757 1.293 2.567 2.287 5.493 2.287 3.865 0 5.825-2.58 5.825-6.052 0-3.03-2.063-4.398-5.024-4.398-1.703 0-2.742.826-3.456 1.774l1.334.885a3.11 3.11 0 0 1 2.04-.802c.873 0 1.44.38 1.44 1.477zm5.513-.002c-.03 1.17-1.023 2.796-3.547 2.796-1.352 0-2.23-.7-2.648-1.3l-.736 1.41c.757 1.293 2.566 2.287 5.493 2.287 3.865 0 5.824-2.58 5.824-6.052 0-3.03-2.063-4.398-5.023-4.398-1.703 0-2.742.826-3.455 1.774l1.335.885a3.11 3.11 0 0 1 2.04-.802c.872 0 1.44.38 1.44 1.477z"/></svg>
+          <div class="skill-name">JavaScript</div>
+        </div>
+        <div class="skill" role="listitem" title="Python" tabindex="0">
+          <!-- Python icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 128 128" fill="#3776AB"><path d="M63.88 3.063c-16.564 0-21.336 6.786-21.336 6.786v7.486h40.6c6.824.212 12.552 4.77 14.76 11.605 3.453 10.72 3.287 21.924 3.287 24.808.015 3.344 3.236 6.868 6.99 7.59 2.4.505 3.975.765 3.975 3.34 0 3.333-3.575 4.172-3.575 4.172h-7.43v7.72h12.317s10.28-.086 16.21-12.235c4.357-8.763 4.377-21.047 4.387-28.473.007-5.15.043-31.882-33.378-31.882Zm-4.392 10.813a6.038 6.038 0 0 1 5.838 6.018 6.04 6.04 0 0 1-5.838 6.018 6.04 6.04 0 0 1-5.826-6.018 6.04 6.04 0 0 1 5.826-6.018ZM68.41 58.37h-20.56l-7.04-6.46H22.52s-9.486-.066-15.544 11.4C2.074 71.83 2.02 88.35 2.02 94.4c.015 5.278-.019 31.887 33.356 31.887 15.73 0 20.22-7.61 20.22-7.61v-7.665H41.933c-7.419 0-13.746-6.771-15.17-16.584-.977-6.985-.977-15.095.01-17.682-1.86-1.276-5.543-2.617-8.484-3.326-6.07-1.41-2.83-5.614-2.83-5.614l6.66-6.618h30.11Zm-19.083 10.302a6.04 6.04 0 0 1 6.19 6.02 6.038 6.038 0 0 1-6.19 6.018 6.035 6.035 0 0 1-6.153-6.018 6.037 6.037 0 0 1 6.153-6.02Z"/></svg>
+          <div class="skill-name">Python</div>
+        </div>
+        <div class="skill" role="listitem" title="PyTorch" tabindex="0">
+          <!-- PyTorch icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 590 680" fill="#EE4C2C"><path d="M289 9.5c-71.22 0-155.68 38.59-255 116.5 96.47 75.966 172.45 146.772 229.88 212.413 7.823-6.43 20.956-10.656 31.22-10.856 8.796.25 23.3 7.597 31.75 12.26 4.91 2.726 8.694 9.278 8.684 15.512-.017 13.05-27.05 51.51-68.46 78.2a287.19 287.19 0 0 0 99.93 81c84.595-53.901 169.59-131.99 140.75-164.4-24.56-27.173-145.06-115.927-145.06-115.927-3.192-3.247-5.483-8.774-5.45-13.68.033-6.438 9.98-17.26 17.3-17.245 120.71 6.668 177.93 112.67 212.44 148.942 5.58 6.06-62.17 139.773-201.09 210.218-27.755 21.11-59.912 38.683-95.03 51.972-3.295-2.18-6.83-4.86-7.98-7.042-5.587-9.38.626-31.107 18.57-46.94 69.344-57.996 116.122-116.044 145.328-175.94-55.23-58.629-128.37-129.46-221.37-212.55-8.73 6.697-17.27 13.377-25.59 19.884-113.74 90.505-181.29 189.02-196.63 294.52-3.1 21.577-1.27 77.31 9.11 107.07 15.31 44.51 52.36 112.7 120.09 161.15 80.78 58.5 165.49 57.983 240.09 42.096 146.78-33.216 307.98-136.52 290.1-174.7-11.3-24.23-64.01-6.74-193.2 21.902-39.44 8.62-88.95-3.332-113.14-13.048-10.66-4.49-10.52-9.935-10.63-17.26-.118-8.133 9.214-22.833 19.2-19.896 41.375 10.436 59.59 7.15 103.38-28.114 49.392-38.673 70.856-101.985 70.856-101.985S304.547 49.715 289 9.5Z"/></svg>
+          <div class="skill-name">PyTorch</div>
+        </div>
+        <div class="skill" role="listitem" title="Tailwind CSS" tabindex="0">
+          <!-- Tailwind CSS icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 64 32" fill="none"><path fill="#06B6D4" d="M9.136 25.321c7.58 0 7.58-4.74 15.165-4.74 7.343 0 7.86 5.323 15.22 5.323 3.195 0 9.87-1.44 11.16-8.14a4.395 4.395 0 0 0-1.15-4.1C44 14.22 39.234 16.46 34.256 16.46c-7.557 0-8.47-6.927-16.037-6.927a12.205 12.205 0 0 0-6.09 1.67"></path><path fill="#0EA5E9" d="M11.917 28.268c7.58 0 7.58-4.74 15.165-4.74 7.343 0 7.858 5.323 15.217 5.323 3.292 0 6.778-2.12 7.318-7.92-3.286 2.532-11.14 3.406-15.356 3.406-7.55 0-8.472-6.927-16.04-6.927a12.287 12.287 0 0 0-6.298 1.67"></path></svg>
+          <div class="skill-name">Tailwind CSS</div>
+        </div>
+        <div class="skill" role="listitem" title="Node.js" tabindex="0">
+          <!-- Node.js icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 128 128"><path fill="#3C873A" d="M64 3C30.8 3 3 30.8 3 64s27.8 61 61 61 61-27.8 61-61S97.2 3 64 3z"/><path fill="#30873B" d="M64 9c-29.7 0-54 24.3-54 54s24.3 54 54 54 54-24.3 54-54-24.3-54-54-54z"/><path fill="#fff" d="M46.6 51v26.4h-4V50.3l23.7-13.7 23.4 13.8v27h-4V50.8L70.4 39.4v37.5h-5V37.6l-18.7 10.3z"/></svg>
+          <div class="skill-name">Node.js</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" aria-label="My Projects">
+      <h3>Projects</h3>
+      <div class="project-list">
+        <article class="project" tabindex="0">
+          <h4>mutiplicationtablegenerator</h4>
+          <p>The Multiplication Table Generator is a handy tool that quickly creates multiplication tables for any number. Whether you're a student looking to practice, a teacher preparing resources, or just someone who needs quick calculations, this generator simplifies learning and saves time!</p>
+          <a href="https://mutiplicationtablegenerator.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="View Project Title project">View Project</a>
+        </article>
+        <!-- 
+        To add your projects, copy this block and change the project title, description, and link.
+        Use the following format:
+
+        <article class="project" tabindex="0">
+          <h4>Project Title</h4>
+          <p>A short description of your project detailing what it is about.</p>
+          <a href="https://link-to-project-or-repo" target="_blank" rel="noopener noreferrer" aria-label="View Project Title project">View Project</a>
+        </article>
+        -->
+        
+        <article class="project" tabindex="0">
+          <h4>Portfolio Website</h4>
+          <p>A responsive personal website with modern design to showcase my projects and skills.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="View Portfolio Website project">View Project</a>
+        </article>
+        <article class="project" tabindex="0">
+          <h4>Task Manager App</h4>
+          <p>A web app for managing todos, with user authentication and local storage functionality.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="View Task Manager App project">View Project</a>
+        </article>
+        <article class="project" tabindex="0">
+          <h4>Weather Dashboard</h4>
+          <p>Displays real-time weather data from an API with search and location functionality.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="View Weather Dashboard project">View Project</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" aria-label="Contact Me">
+      <h3>Contact Me</h3>
+      <form id="contact-form" novalidate>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required minlength="2" />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" placeholder="Write your message here..." required minlength="10"></textarea>
+
+        <button type="submit">Send</button>
+        <div class="success-message" role="alert" aria-live="polite"></div>
+        <div class="error-message" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <button id="back-to-top" aria-label="Back to top" title="Back to top" tabindex="0">&#8679;</button>
+
+  <footer>
+    &copy; 2024 Your Name - Created with passion
+    <div class="social" aria-label="Social media links">
+      <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Link to Twitter" tabindex="0" title="Twitter" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#888" viewBox="0 0 24 24"><path d="M24 4.557a9.83 9.83 0 0 1-2.828.775 4.933 4.933 0 0 0 2.165-2.724 9.87 9.87 0 0 1-3.127 1.196 4.916 4.916 0 0 0-8.38 4.482c-4.083-.21-7.7-2.158-10.125-5.128a4.822 4.822 0 0 0-.664 2.475 4.917 4.917 0 0 0 2.188 4.1 4.904 4.904 0 0 1-2.228-.616v.06a4.917 4.917 0 0 0 3.946 4.816 4.902 4.902 0 0 1-1.292.172 4.88 4.88 0 0 1-.92-.088 4.92 4.92 0 0 0 4.59 3.417 9.868 9.868 0 0 1-6.102 2.105c-.395 0-.787-.023-1.175-.07a13.951 13.951 0 0 0 7.548 2.213c9.05 0 14.003-7.494 14.003-14.003 0-.213-.005-.425-.014-.636A10.012 10.012 0 0 0 24 4.557z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Link to GitHub" tabindex="0" title="GitHub" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#888" viewBox="0 0 24 24"><path d="M12 0C5.375 0 0 5.375 0 12c0 5.309 3.438 9.812 8.207 11.392.6.113.82-.262.82-.58 0-.29-.012-1.257-.017-2.277-3.338.726-4.042-1.61-4.042-1.61-.547-1.387-1.335-1.758-1.335-1.758-1.09-.747.082-.732.082-.732 1.205.085 1.84 1.237 1.84 1.237 1.07 1.838 2.809 1.306 3.495.998.108-.775.42-1.306.762-1.607-2.665-.303-5.466-1.333-5.466-5.93 0-1.309.468-2.38 1.237-3.22-.124-.303-.536-1.523.117-3.176 0 0 1.007-.322 3.3 1.23A11.53 11.53 0 0 1 12 5.802c1.02.004 2.047.138 3.006.404 2.287-1.553 3.292-1.23 3.292-1.23.656 1.653.244 2.873.12 3.176.77.84 1.236 1.91 1.236 3.22 0 4.61-2.807 5.625-5.482 5.92.432.374.816 1.11.816 2.243 0 1.62-.014 2.927-.014 3.327 0 .322.216.698.825.579C20.565 21.81 24 17.305 24 12c0-6.625-5.375-12-12-12z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Link to LinkedIn" tabindex="0" title="LinkedIn" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#888" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.555v-5.569c0-1.328-.026-3.04-1.85-3.04-1.852 0-2.134 1.445-2.134 2.939v5.67H9.354V9h3.414v1.561h.047c.476-.9 1.637-1.85 3.368-1.85 3.604 0 4.268 2.37 4.268 5.456v6.285zM5.337 7.433a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm1.777 13.02H3.561V9h3.553v11.453zM22.225 0H1.771C.792 0 0 .77 0 1.723v20.556C0 23.23.792 24 1.771 24h20.451c.98 0 1.778-.77 1.778-1.721V1.723C24 .77 23.206 0 22.225 0z"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <button id="back-to-top" aria-label="Back to top" title="Back to top" tabindex="0">&#8679;</button>
+
+  <script>
+    // Navigation active link highlight on scroll
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav ul li a");
+
+    function changeActiveLink() {
+      let index = sections.length;
+
+      while(--index && window.scrollY + 120 < sections[index].offsetTop) {}
+      navLinks.forEach(link => link.classList.remove("active"));
+      navLinks[index].classList.add("active");
+    }
+    changeActiveLink();
+    window.addEventListener("scroll", changeActiveLink);
+
+    // Animate sections on scroll into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(section => observer.observe(section));
+
+    // Contact form validation and submission simulation (no real backend)
+    const form = document.getElementById('contact-form');
+    const successMessage = form.querySelector('.success-message');
+    const errorMessage = form.querySelector('.error-message');
+
+    // Initially clear messages and hide visibly on page load
+    successMessage.textContent = '';
+    errorMessage.textContent = '';
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      successMessage.classList.remove('visible');
+      errorMessage.classList.remove('visible');
+      successMessage.textContent = '';
+      errorMessage.textContent = '';
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+
+      if (name.length < 2) {
+        errorMessage.textContent = "Please enter a valid name (at least 2 characters).";
+        errorMessage.classList.add('visible');
+        return;
+      }
+      if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        errorMessage.textContent = "Please enter a valid email address.";
+        errorMessage.classList.add('visible');
+        return;
+      }
+      if (message.length < 10) {
+        errorMessage.textContent = "Please write a message of at least 10 characters.";
+        errorMessage.classList.add('visible');
+        return;
+      }
+
+      // Simulate sending message
+      setTimeout(() => {
+        form.reset();
+        successMessage.textContent = "Thank you! Your message has been sent.";
+        successMessage.classList.add('visible');
+      }, 800);
+    });
+
+    // Back to top button
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Theme toggle (dark/light mode) with localStorage persistence
+    const themeToggle = document.getElementById('theme-toggle');
+    function setTheme(theme) {
+      if (theme === 'light') {
+        document.body.classList.add('light');
+        themeToggle.setAttribute('aria-pressed', 'true');
+      } else {
+        document.body.classList.remove('light');
+        themeToggle.setAttribute('aria-pressed', 'false');
+      }
+      localStorage.setItem('theme', theme);
+    }
+    // Initialize theme from localStorage or prefers-color-scheme
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme === 'light' || (!savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
+    themeToggle.addEventListener('click', () => {
+      if(document.body.classList.contains('light')) {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+    });
+  </script>
+</body>
+</html>
